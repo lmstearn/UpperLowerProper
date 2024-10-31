@@ -8,8 +8,8 @@ A list of the renamed files is found in Tes5Rename.log, on the MYGAMESSKYRIM<br 
 following section in the script.
 
 REM ==================================================<br />
-If Skyrim location is not default or standard, use an editor<br />
-to modify "MYBASESKYRIM=Your_Different_Skyrim_Foldername"<br />
+If your Skyrim location is not default or standard, use an editor<br />
+to modify the line "MYBASESKYRIM=Your_Different_Skyrim_Foldername"<br />
 Can use wildcard "*". Do not include drive letters!<br />
 Optionally check and adjust locations for MYGAMESSKYRIM and MYAPPDATASKYRIM.<br />
 REM ==================================================<br />
@@ -19,14 +19,14 @@ SET "MYAPPDATASKYRIM=Users\%USERNAME%\AppData\Local\Skyrim Special Edition"<br /
 REM ==================================================<br />
 
 An option exists to scan for a second or third installation of the game on the same drive.<br />
-In that case, consider using a text editor for the addition of extra folders to the above<br />
-MYBASESKYRIM assignment, separated by a semicolon.<br />
+In that case, consider using a text editor for the addition of extra folders to the 
+above MYBASESKYRIM assignment, separated by a semicolon.<br />
 If, instead using an upper level folder like "Games" for MYBASESKYRIM, expect a longer<br />
 wait for the search to complete. To scan for the default or original MYBASESKYRIM folder<br />
 on a different drive, input just the new drive letter.<br />
 An option also exists to rename the contents of the MYGAMESSKYRIM and <br />
 MYAPPDATASKYRIM folders. Similar scripts will be included for GOG versions,<br />
-other TES Games, and a generic <br />Windows folder/file rename utility.<br />
+other TES Games, and a generic Windows folder/file rename utility.<br />
 
 Gotchas:<br />
 The script will omit renaming files or folders with a semicolon in thir names.<br />
