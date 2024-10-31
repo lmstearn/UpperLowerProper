@@ -6,15 +6,15 @@ commencing from A: drive (finding it typically on C:), renaming all subfolders a
 upper, lower or Proper case. A list of the renamed files is found in Tes5Rename.log, on the MYGAMESSKYRIM\
 (see below) directory. Non-standard game folder names can be inserted to the following section in the script.
 
-===================================================================================\
+===============================================================================\
 REM ===If Skyrim location differs to one below, change "MYBASESKYRIM=Your_Different_Skyrim_Foldername"===\
 REM ===================Can use wildcard "*". Do not include drive letters!==================\
 REM =======Optionally check and adjust locations for MYGAMESSKYRIM and MYAPPDATASKYRIM============\
-REM ================================================================================\
+REM ===========================================================================\
 SET "MYBASESKYRIM=Games\Steam\steamapps\common\Skyrim Special Edition"\
 SET "MYGAMESSKYRIM=Users\%USERNAME%\Documents\My Games\Skyrim Special Edition"\
 SET "MYAPPDATASKYRIM=Users\%USERNAME%\AppData\Local\Skyrim Special Edition"\
-REM =================================================================================\
+REM ============================================================================
 
 An option exists to scan for a second or third installation of the game on the same drive.
 In that case, consider using a text editor for the addition of extra folders to the above \
