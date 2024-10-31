@@ -7,15 +7,16 @@ A list of the renamed files is found in Tes5Rename.log, on the MYGAMESSKYRIM<br 
 (see below) directory. Non-standard game folder names can be inserted to the<br />
 following section in the script.
 
-REM ===================================================<br />
-If Skyrim location isn't default, change"MYBASESKYRIM=Your_Different_Skyrim_Foldername"<br />
+REM ==================================================<br />
+If Skyrim location is not default or standard, use an editor<br />
+to modify "MYBASESKYRIM=Your_Different_Skyrim_Foldername"<br />
 Can use wildcard "*". Do not include drive letters!<br />
 Optionally check and adjust locations for MYGAMESSKYRIM and MYAPPDATASKYRIM.<br />
-REM ===================================================<br />
+REM ==================================================<br />
 SET "MYBASESKYRIM=Games\Steam\steamapps\common\Skyrim Special Edition"<br />
 SET "MYGAMESSKYRIM=Users\%USERNAME%\Documents\My Games\Skyrim Special Edition"<br />
 SET "MYAPPDATASKYRIM=Users\%USERNAME%\AppData\Local\Skyrim Special Edition"<br />
-REM ===================================================<br />
+REM ==================================================<br />
 
 An option exists to scan for a second or third installation of the game on the same drive.<br />
 In that case, consider using a text editor for the addition of extra folders to the above<br />
