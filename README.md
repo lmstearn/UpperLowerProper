@@ -1,10 +1,10 @@
 # UpperLowerProper
 Batch File and Folder Case Renamer
 
-The script will scan for the first occurrence of the Skyrim (SSE) installation (MYBASESKYRIM) the drives
-commencing from A: drive (finding it typically on C:), renaming all subfolders and the files to either 
-upper, lower or Proper case. A list of the renamed files is found in Tes5Rename.log, on the MYGAMESSKYRIM
-(see below) directory. Non-standard game folder names can be inserted to the following section in the script.
+The script will scan for the first occurrence of the Skyrim (SSE) installation (MYBASESKYRIM) the drives\
+commencing from A: drive (finding it typically on C:), renaming all subfolders and the files to either\
+upper, lower or Proper case. A list of the renamed files is found in Tes5Rename.log, on the MYGAMESSKYRIM\
+(see below) directory. Non-standard game folder names can be inserted to the following section in the script.\
 
 =======================================================================================================
 REM ===If Skyrim location differs to one below, change "MYBASESKYRIM=Your_Different_Skyrim_Foldername"===
