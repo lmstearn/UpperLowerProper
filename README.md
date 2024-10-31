@@ -23,7 +23,7 @@ In that case, consider using a text editor for the inclusion of extra folders to
 above MYBASESKYRIM assignment, each separated by a semicolon.<br />
 If, instead using an upper level folder like "Games" for MYBASESKYRIM, expect a longer<br />
 wait for the search to complete. To scan for the default or original MYBASESKYRIM folder<br />
-on a different drive, input just the new drive letter.<br />
+on a different drive, input just the new drive letter at the prompt.<br />
 An option also exists to rename the contents of the MYGAMESSKYRIM and <br />
 MYAPPDATASKYRIM folders. Similar scripts will be included for GOG versions,<br />
 other TES Games, and a generic Windows folder/file rename utility.<br />
