@@ -17,7 +17,9 @@ REM --> If error flag set, we do not have admin.
 if '%errorlevel%' NEQ '0' (
     echo Requesting administrative privileges...
     goto UACPrompt
-) else ( goto gotAdmin )
+) else ( 
+goto gotAdmin
+)
 
 REM https://superuser.com/questions/80485/exit-batch-file-from-subroutine
 IF "%selfWrapped%"=="" (
@@ -35,7 +37,7 @@ echo For Each strArg in WScript.Arguments >> "%temp%\getadmin.vbs"
 echo args = args ^& strArg ^& " "  >> "%temp%\getadmin.vbs"
 echo Next >> "%temp%\getadmin.vbs"
 echo UAC.ShellExecute "%~s0", args, "", "runas", 1 >> "%temp%\getadmin.vbs"
-S
+
     "%temp%\getadmin.vbs" %*
     goto :eof
 
@@ -200,6 +202,7 @@ REM ======================Can use wildcard "*". Do not include drive letters!===
 REM ============Optionally check and adjust locations for MYGAMESSKYRIM and MYAPPDATASKYRIM================
 REM =======================================================================================================
 SET "MYBASESKYRIM=Games\Steam\steamapps\common\Skyrim Special Edition"
+SET "MYBASESKYRIM=Users\lmstearn\Desktop\desktemp"
 SET "MYGAMESSKYRIM=Users\%USERNAME%\Documents\My Games\Skyrim Special Edition"
 SET "MYAPPDATASKYRIM=Users\%USERNAME%\AppData\Local\Skyrim Special Edition"
 REM =======================================================================================================
@@ -524,14 +527,12 @@ call :CHECKPATHS
 
 )
 
-if not defined FOLDERSET (
-@set FOLDERSETINPUT=!FOLDERSET1:~0,-1!
-)
 @GOTO EXPANDFOLDERSET
 exit /b
 :CHECKPATHS
 set ANOTHERDRIVE=
 set CC=
+set XX= 
 set FOLDERSET1=
 set /A G=1
 set "FOLDERSETINPUT!g!=%FOLDERSETINPUT:;=" & set /A g+=1 & set "FOLDERSETINPUT!g!=%"
@@ -540,53 +541,92 @@ for /L %%g in (1;1;%g%) do (
 
 set "CC=!FOLDERSETINPUT%%g!"
 
-set XX=
-if /I !CC!==A: set "XX=!CC!"
-if /I !CC!==B: set "XX=!CC!"
-if /I !CC!==C: set "XX=!CC!"
-if /I !CC!==D: set "XX=!CC!"
-if /I !CC!==E: set "XX=!CC!"
-if /I !CC!==F: set "XX=!CC!"
-if /I !CC!==G: set "XX=!CC!"
-if /I !CC!==H: set "XX=!CC!"
-if /I !CC!==I: set "XX=!CC!"
-if /I !CC!==J: set "XX=!CC!"
-if /I !CC!==K: set "XX=!CC!"
-if /I !CC!==L: set "XX=INVALID"
-if /I !CC!==M: set "XX=INVALID"
-if /I !CC!==N: set "XX=INVALID"
-if /I !CC!==O: set "XX=INVALID"
-if /I !CC!==P: set "XX=INVALID"
-if /I !CC!==Q: set "XX=INVALID"
-if /I !CC!==R: set "XX=INVALID"
-if /I !CC!==S: set "XX=INVALID"
-if /I !CC!==T: set "XX=INVALID"
-if /I !CC!==U: set "XX=INVALID"
-if /I !CC!==V: set "XX=INVALID"
-if /I !CC!==W: set "XX=INVALID"
-if /I !CC!==X: set "XX=INVALID"
-if /I !CC!==Y: set "XX=INVALID"
-if /I !CC!==Z: set "XX=!CC!"
-if defined XX (
-if XX==INVALID (
+set YY=
+call :CheckInputDrive YY !CC!
+
+
+if defined YY (
+
+if !YY!==INVALID (
+
 set "EMPTYDIRECTORY=Drive not supported. Please rerun^!"
 GOTO ENDSCRIPT
 )
 REM Only one drive accepted
-if not defined ANOTHERDRIVE set "ANOTHERDRIVE=!XX!"
+if not defined ANOTHERDRIVE (
+if exist !YY! (
+set "ANOTHERDRIVE=!YY!"
 ) else (
+set "ANOTHERDRIVE=!FOUNDLASTSKYRIM!"
+)
+)
+) else (
+
+REM strip drive letter from path - does it have a drive ID?
+set "YY=!CC:~0,2!"
+set XX=
+if defined YY call :CheckInputDrive XX !YY!
+
+
+if defined XX (
+rem Now retrieve path
+set "CC=!CC:~3!"
+if not defined spareDrive set "spareDrive=!XX!"
+
+)
 set FOLDERSET=
+
 @set "FOLDERSET1=!FOLDERSET1!!CC!"
 @set "FOLDERSET1=!FOLDERSET1!;"
 )
+
 )
-if not defined FOLDERSET1 (
+
+if defined spareDrive (
+if not defined ANOTHERDRIVE set "ANOTHERDRIVE=!spareDrive!"
+)
+
+if defined FOLDERSET (
 if DEFINED FOUNDLASTSKYRIM (
-set "FOLDERSETINPUT=!MYBASESKYRIM:~3%!"
+set "FOLDERSETINPUT=!MYBASESKYRIM:~3!"
 ) else (
 set "FOLDERSETINPUT=!MYBASESKYRIM!"
 )
+) else (
+if not defined ANOTHERDRIVE set "ANOTHERDRIVE=!FOUNDLASTSKYRIM!"
+@set FOLDERSETINPUT=!FOLDERSET1:~0,-1!"
 )
+
+exit /b
+:CheckInputDrive
+set ZZ=
+if /I %~2==A: set "ZZ=%~2"
+if /I %~2==B: set "ZZ=%~2"
+if /I %~2==C: set "ZZ=%~2"
+if /I %~2==D: set "ZZ=%~2"
+if /I %~2==E: set "ZZ=%~2"
+if /I %~2==F: set "ZZ=%~2"
+if /I %~2==G: set "ZZ=%~2"
+if /I %~2==H: set "ZZ=%~2"
+if /I %~2==I: set "ZZ=%~2"
+if /I %~2==J: set "ZZ=%~2"
+if /I %~2==K: set "ZZ=%~2"
+if /I %~2==L: set "ZZ=INVALID"
+if /I %~2==M: set "ZZ=INVALID"
+if /I %~2==N: set "ZZ=INVALID"
+if /I %~2==O: set "ZZ=INVALID"
+if /I %~2==P: set "ZZ=INVALID"
+if /I %~2==Q: set "ZZ=INVALID"
+if /I %~2==R: set "ZZ=INVALID"
+if /I %~2==S: set "ZZ=INVALID"
+if /I %~2==T: set "ZZ=INVALID"
+if /I %~2==U: set "ZZ=INVALID"
+if /I %~2==V: set "ZZ=INVALID"
+if /I %~2==W: set "ZZ=INVALID"
+if /I %~2==X: set "ZZ=INVALID"
+if /I %~2==Y: set "ZZ=INVALID"
+if /I %~2==Z: set "ZZ=%~2"
+set "%~1=%ZZ%"
 
 exit /b
 :FINISH
@@ -1089,6 +1129,7 @@ if DEFINED FOUNDLASTSKYRIM @call :CheckCURRDRIVE
 
 if defined ANOTHERDRIVE @set "DD=!ANOTHERDRIVE!"
 
+
 set XX=
 set CC=
 
@@ -1107,6 +1148,7 @@ if not !LASTFOLDER!==!XX! (
 )
 
 ) else (
+
 set ZZ=
 set "FSELEMENT=!DD!\%~1"
 
@@ -1123,10 +1165,9 @@ REM It may occur the full path directory of FSELEMENT is returned first (reparse
 
 
 set "CC=%%C"
-set "XX=!CC:~0,3!"
+set "XX=%%~dC"
 
-
-if !XX!==!YY! (
+if !XX!==!DD! (
 
 if not defined ZZ (
 
