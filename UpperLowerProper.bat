@@ -202,7 +202,6 @@ REM ======================Can use wildcard "*". Do not include drive letters!===
 REM ============Optionally check and adjust locations for MYGAMESSKYRIM and MYAPPDATASKYRIM================
 REM =======================================================================================================
 SET "MYBASESKYRIM=Games\Steam\steamapps\common\Skyrim Special Edition"
-SET "MYBASESKYRIM=Users\lmstearn\Desktop\desktemp"
 SET "MYGAMESSKYRIM=Users\%USERNAME%\Documents\My Games\Skyrim Special Edition"
 SET "MYAPPDATASKYRIM=Users\%USERNAME%\AppData\Local\Skyrim Special Edition"
 REM =======================================================================================================
