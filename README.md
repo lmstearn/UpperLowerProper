@@ -29,6 +29,7 @@ MYAPPDATASKYRIM folders. Similar scripts will be included for GOG versions,<br /
 other TES Games, and a generic Windows folder/file rename utility.<br />
 
 Gotchas:<br />
+Will not support UNC share drives. A milestone. 
 The script will omit renaming files or folders with a semicolon in thir names.<br />
 The collection of combined nested folder names do not exceed 8191 characters.<br />
 If they do, the script may not complete the renaming.<br />
