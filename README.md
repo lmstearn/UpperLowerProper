@@ -28,7 +28,7 @@ wait for the search to complete. To scan for the default or original MYBASESKYRI
 folder on a different drive, input just the new drive letter at the prompt.<br />
 An option also exists to rename the contents of the MYGAMESSKYRIM and <br />
 MYAPPDATASKYRIM folders. Similar scripts will be included for GOG versions,<br />
-other TES Games, and a generic Windows folder/file rename utility.<br />
+other TES Games, and a folder/file rename utility for a generic game.<br />
 
 Gotchas:<br />
 * Will not support UNC share drives. A milestone.<br />
