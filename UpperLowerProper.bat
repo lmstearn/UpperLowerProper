@@ -68,7 +68,8 @@ REM if CmdExtVersion 2 echo Command extensions v2 or later available
 set CREATKIT=
 set TESVGAME=
 set TES5EDIT=
-
+SET "MYGAMEEXE=SKYRIMSE.EXE"
+SET "MYGAMEEXENAME=%MYGAMEEXE:~0,-4%"
 
 tasklist /fi "IMAGENAME eq CreationKit.exe" | find /i "CreationKit.exe" > nul
 
@@ -76,9 +77,9 @@ if %errorlevel% EQU 0 set "CREATKIT=Creation Kit is running so the file will not
 
 
 REM tasklist /fi "IMAGENAME eq tesv.exe" | find /i "tesv.exe" > nul
-tasklist /fi "IMAGENAME eq SkyrimSE.exe" | find /i "SkyrimSE.exe" > nul
+tasklist /fi "IMAGENAME eq %MYGAMEEXE%" | find /i "%MYGAMEEXE%" > nul
 
-if %errorlevel% EQU 0 set "TESVGAME=Skyrim is running so the file will not be renamed."
+if %errorlevel% EQU 0 set "TESVGAME=%MYGAMEEXENAME% is running so the file will not be renamed."
 
 
 REM tasklist /fi "IMAGENAME eq TES5Edit.exe" | find /i "TES5Edit.exe" > nul
@@ -101,20 +102,20 @@ echo(
 
 
 SET renameChoice=
-echo                          Welcome to the Skyrim Rename Tool!
+echo                          Welcome to the %MYGAMEEXENAME% Rename Tool!
 echo(
 echo **********************Please type enter after each key response.*************************
 echo(
 echo          Folders and files are renamed to either lower case, upper case, or proper case.
-echo     The Tool scans drives, starting with A, locating Skyrim on the first drive, typically C.
+echo    The Tool scans drives, starting with A, locating %MYGAMEEXENAME% on the first drive, typically C.
 echo    Upon proceeding, the existing filename case pattern is not saved, thus cannot be restored.
 echo    The FOLDERSET variable contains only a subset of locations for the game on a drive, it can be
 echo   modified to include more - e.g. for a root folder beginning with Z or z, add Z* to the variable.
-echo    If there are other copies of Skyrim installations on a drive, type C after the selection, e.g.
-echo    "LC" renames to lower case all Skyrim installations on the first and optionally other drives.
-echo   For items from Documents\My Games\Skyrim and Appdata\Local\Skyrim, type M after selection, e.g.
-echo   "UM" renames to upper case items in Skyrim base plus My Games\Skyrim and Appdata\Local\Skyrim.
-echo   "LCM" (not LMC MCL etc) renames items to lower case in the game directory and ..\My Games\Skyrim.
+echo   If there are other copies of %MYGAMEEXENAME% installations on a drive, type C after the selection, e.g.
+echo   "LC" renames to lower case all %MYGAMEEXENAME% installations on the first and optionally other drives.
+echo For items from Documents\My Games\%MYGAMEEXENAME% and Appdata\Local\%MYGAMEEXENAME%, type M after selection, e.g.
+echo "UM" renames to upper case items in %MYGAMEEXENAME% base, My Games\%MYGAMEEXENAME%, and Appdata\Local\%MYGAMEEXENAME%.
+echo  "LCM" (not LMC MCL etc) renames items to lower case in the game directory and ..\My Games\%MYGAMEEXENAME%.
 echo(
 SET /P renameChoice="Type L for lower, U for upper, P for proper case, other key or close window exits, no change."
 
@@ -124,7 +125,7 @@ if /I !renameChoice!==u set "choice=y"
 if /I !renameChoice!==p set "choice=y"
 if /I !renameChoice!==lc (
 set "choice=y"
-set "multiSkyrim=1"
+set "multiGame=1"
 set "renameChoice=l"
 )
 if /I !renameChoice!==lm (
@@ -134,13 +135,13 @@ set "myGames=1"
 )
 if /I !renameChoice!==lcm (
 set "choice=y"
-set "multiSkyrim=1"
+set "multiGame=1"
 set "renameChoice=l"
 set "myGames=1"
 )
 if /I !renameChoice!==uc (
 set "choice=y"
-set "multiSkyrim=1"
+set "multiGame=1"
 set "renameChoice=u"
 )
 if /I !renameChoice!==um (
@@ -150,13 +151,13 @@ set "myGames=1"
 )
 if /I !renameChoice!==ucm (
 set "choice=y"
-set "multiSkyrim=1"
+set "multiGame=1"
 set "renameChoice=u"
 set "myGames=1"
 )
 if /I !renameChoice!==pc (
 set "choice=y"
-set "multiSkyrim=1"
+set "multiGame=1"
 set "renameChoice=p"
 )
 if /I !renameChoice!==pm (
@@ -166,7 +167,7 @@ set "myGames=1"
 )
 if /I !renameChoice!==pcm (
 set "choice=y"
-set "multiSkyrim=1"
+set "multiGame=1"
 set "renameChoice=p"
 set "myGames=1"
 )
@@ -189,31 +190,31 @@ set DD=
 set YY=
 @set multidrive=
 set "INITIAL=1"
-set FOUNDLASTSKYRIM=
-SET SKYRIMFOLDER=
+set FOUNDLASTGAME=
+SET GAMEFOLDER=
 set FOLDERSETINPUT=
 set FOLDERSET=
 set FOLDERSET1=
 set ANOTHERDRIVE=
 
 REM =======================================================================================================
-REM ===If Skyrim location differs to one below, change "MYBASESKYRIM=Your_Different_Skyrim_Foldername"===
+REM ==If MYGAMEEXE location differs to one below, change "MYBASEGAME=Your_Different_MYGAMEEXE_Foldername"==
 REM ======================Can use wildcard "*". Do not include drive letters!==============================
-REM ============Optionally check and adjust locations for MYGAMESSKYRIM and MYAPPDATASKYRIM================
+REM ============Optionally check and adjust locations for MYGAMESGAME and MYAPPDATAGAME================
 REM =======================================================================================================
-SET "MYBASESKYRIM=Games\Steam\steamapps\common\Skyrim Special Edition"
-SET "MYGAMESSKYRIM=Users\%USERNAME%\Documents\My Games\Skyrim Special Edition"
-SET "MYAPPDATASKYRIM=Users\%USERNAME%\AppData\Local\Skyrim Special Edition"
+SET "MYBASEGAME=Games\Steam\steamapps\common\Skyrim Special Edition"
+SET "MYGAMESGAME=Users\%USERNAME%\Documents\My Games\Skyrim Special Edition"
+SET "MYAPPDATAGAME=Users\%USERNAME%\AppData\Local\Skyrim Special Edition"
 REM =======================================================================================================
 
 
 
 
 if defined myGames (
-@SET "FOLDERSETINPUT=!MYBASESKYRIM!;!MYGAMESSKYRIM!;!MYAPPDATASKYRIM!"
-set "multiSkyrim=1
+@SET "FOLDERSETINPUT=!MYBASEGAME!;!MYGAMESGAME!;!MYAPPDATAGAME!"
+set "multiGame=1
 ) else (
-@SET "FOLDERSETINPUT=!MYBASESKYRIM!
+@SET "FOLDERSETINPUT=!MYBASEGAME!
 )
 
 @Call :EXPANDFOLDERSET
@@ -254,18 +255,21 @@ cd \ >NUL
 
 
 
-if DEFINED FOUNDLASTSKYRIM (
+if DEFINED FOUNDLASTGAME (
 
 
 call :CheckANOTHERDRIVE
 
 
 if defined DD (
-SET SKYRIMFOLDER1=
-SET SKYRIMFOLDER2=
-SET SKYRIMFOLDER3=
+SET GAMEFOLDER1=
+SET GAMEFOLDER2=
+SET GAMEFOLDER3=
 FOR %%A IN (!FOLDERSET!) DO (
 @set "FOLDERSET1=%%A"
+
+
+if exist !FOLDERSET1!\ (
 
 for /f "delims=;" %%C in ('dir /b /s /a !FOLDERSET1!') do (
 
@@ -278,63 +282,64 @@ for /D %%G in (!ZZ!) do (
 
 
 
-if /i %%~nxG==SKYRIMSE.EXE (
+if /i %%~nxG==!MYGAMEEXE! (
 set "CURRDRIVE=!DD!"
 
-if defined SKYRIMFOLDER1 (
-if defined SKYRIMFOLDER2 (
-if not defined SKYRIMFOLDER3 (
-set "SKYRIMFOLDER3=%%~dpG"
-if "!SKYRIMFOLDER3:~-1!"=="\" (
-set "SKYRIMFOLDER=!SKYRIMFOLDER3:~0,-1!"
+if defined GAMEFOLDER1 (
+if defined GAMEFOLDER2 (
+if not defined GAMEFOLDER3 (
+set "GAMEFOLDER3=%%~dpG"
+if "!GAMEFOLDER3:~-1!"=="\" (
+set "GAMEFOLDER=!GAMEFOLDER3:~0,-1!"
 ) else (
-set "SKYRIMFOLDER=!SKYRIMFOLDER3!"
-SET "SKYRIMFOLDER3=!SKYRIMFOLDER3!\"
+set "GAMEFOLDER=!GAMEFOLDER3!"
+SET "GAMEFOLDER3=!GAMEFOLDER3!\"
 )
-pushd !SKYRIMFOLDER! >> !logFile! 2>&1
+pushd !GAMEFOLDER! >> !logFile! 2>&1
 
-@call :GOTSKYRIMFOLDER
+@call :GOTGAMEFOLDER
 @popd
 goto :FINISH
 )
 ) else (
-set "SKYRIMFOLDER2=%%~dpG"
-if "!SKYRIMFOLDER2:~-1!"=="\" (
-set "SKYRIMFOLDER=!SKYRIMFOLDER2:~0,-1!"
+set "GAMEFOLDER2=%%~dpG"
+if "!GAMEFOLDER2:~-1!"=="\" (
+set "GAMEFOLDER=!GAMEFOLDER2:~0,-1!"
 ) else (
-set "SKYRIMFOLDER=!SKYRIMFOLDER2!"
-SET "SKYRIMFOLDER2=!SKYRIMFOLDER2!\"
+set "GAMEFOLDER=!GAMEFOLDER2!"
+SET "GAMEFOLDER2=!GAMEFOLDER2!\"
 )
-pushd !SKYRIMFOLDER! >> !logFile! 2>&1
+pushd !GAMEFOLDER! >> !logFile! 2>&1
 
-@call :GOTSKYRIMFOLDER
+@call :GOTGAMEFOLDER
 @popd
 )
 ) else (
 
 
 
-set "SKYRIMFOLDER1=%%~dpG"
+set "GAMEFOLDER1=%%~dpG"
 
-if "!SKYRIMFOLDER1:~-1!"=="\" (
-set "SKYRIMFOLDER=!SKYRIMFOLDER1:~0,-1!"
+if "!GAMEFOLDER1:~-1!"=="\" (
+set "GAMEFOLDER=!GAMEFOLDER1:~0,-1!"
 ) else (
-set "SKYRIMFOLDER=!SKYRIMFOLDER1!"
-SET "SKYRIMFOLDER1=!SKYRIMFOLDER1!\"
+set "GAMEFOLDER=!GAMEFOLDER1!"
+SET "GAMEFOLDER1=!GAMEFOLDER1!\"
 )
-set "FOUNDLASTSKYRIM=!DD!"
-pushd !SKYRIMFOLDER! >> !logFile! 2>&1
+set "FOUNDLASTGAME=!DD!"
+pushd !GAMEFOLDER! >> !logFile! 2>&1
 
-@call :GOTSKYRIMFOLDER
+@call :GOTGAMEFOLDER
 @popd
 REM Following fails
-REM call :GOTSKYRIMFOLDER 1>> "!logFile!" 2>&1
+REM call :GOTGAMEFOLDER 1>> "!logFile!" 2>&1
 set "CURRDRIVE=!DD!"
 
 goto :FINISH
 
 )
 
+)
 )
 )
 )
@@ -353,11 +358,13 @@ set "FOLDERSET!g!=%FOLDERSET:;=" & set /A g+=1 & set "FOLDERSET!g!=%"
 for /L %%g in (1;1;%g%) do (
 set "FOLDERSET1=!FOLDERSET%%g!"
 
+if exist !FOLDERSET1!\ (
+
 if defined INITIAL (
 
-If /I NOT !FOLDERSET1!==!MYBASESKYRIM! (
-If /I !FOLDERSET1!==!MYGAMESSKYRIM! set "myGames=DONOW"
-If /I !FOLDERSET1!==!MYAPPDATASKYRIM! set "myGames=DONOW"
+If /I NOT !FOLDERSET1!==!MYBASEGAME! (
+If /I !FOLDERSET1!==!MYGAMESGAME! set "myGames=DONOW"
+If /I !FOLDERSET1!==!MYAPPDATAGAME! set "myGames=DONOW"
 )
 )
 
@@ -365,26 +372,32 @@ if !myGames!==DONOW (
 
 
 set "CC=!FOLDERSET1:~3!"
-set "SKYRIMFOLDER=!YY!!CC!"
+set "GAMEFOLDER=!YY!!CC!"
 
 
-pushd !SKYRIMFOLDER! >> !logFile! 2>&1
+pushd !GAMEFOLDER! >> !logFile! 2>&1
 
-IF EXIST !SKYRIMFOLDER! (
-@call :GOTSKYRIMFOLDER
+IF EXIST !GAMEFOLDER! (
+@call :GOTGAMEFOLDER
 @popd
-If /I !FOLDERSET1!==!MYAPPDATASKYRIM! goto :FINISH
+If /I !FOLDERSET1!==!MYAPPDATAGAME! goto :FINISH
 ) else (
 @echo on
-echo PROBLEM WITH "!SKYRIMFOLDER!" >> !logFile!
+echo PROBLEM WITH "!GAMEFOLDER!" >> !logFile!
 @echo off
 @SET "BREAKLOOP=1"
 )
 
 ) else (
 
+@echo on
+echo GAMEFOLDER !GAMEFOLDER!
+echo FOLDERSET1 !FOLDERSET1!
+echo CC !CC!
+SET /P ttt="TEST"
+@echo off
 
-for /f "delims=;" %%C in ('dir /b /s /a !FOLDERSET1!') do (
+for /f "delims=;" %%C in ('dir /b /s /a !FOLDERSET1!' ) do (
 
 set "XX=%%C"
 set "CC=!XX:~3!"
@@ -394,86 +407,87 @@ set "ZZ=!YY!!CC!"
 for /D %%G in (!ZZ!) do (
 
 REM tesv.exe is for Oldrim
-if /i %%~nxG==SKYRIMSE.EXE (
-if defined SKYRIMFOLDER1 (
-REM Here if multiSkyrim
-if defined SKYRIMFOLDER2 (
-if not defined SKYRIMFOLDER3 (
-set "SKYRIMFOLDER3=%%~dpG"
-if "!SKYRIMFOLDER3:~-1!"=="\" (
-set "SKYRIMFOLDER=!SKYRIMFOLDER3:~0,-1!"
+if /i %%~nxG==!MYGAMEEXE! (
+if defined GAMEFOLDER1 (
+REM Here if multiGame
+if defined GAMEFOLDER2 (
+if not defined GAMEFOLDER3 (
+set "GAMEFOLDER3=%%~dpG"
+if "!GAMEFOLDER3:~-1!"=="\" (
+set "GAMEFOLDER=!GAMEFOLDER3:~0,-1!"
 ) else (
-set "SKYRIMFOLDER=!SKYRIMFOLDER3!"
-SET "SKYRIMFOLDER3=!SKYRIMFOLDER3!\"
+set "GAMEFOLDER=!GAMEFOLDER3!"
+SET "GAMEFOLDER3=!GAMEFOLDER3!\"
 )
-pushd !SKYRIMFOLDER! >> !logFile! 2>&1
+pushd !GAMEFOLDER! >> !logFile! 2>&1
 
-@call :GOTSKYRIMFOLDER
+@call :GOTGAMEFOLDER
 @popd
 goto :FINISH
 )
 ) else (
-set "SKYRIMFOLDER2=%%~dpG"
+set "GAMEFOLDER2=%%~dpG"
 
-if "!SKYRIMFOLDER2:~-1!"=="\" (
-set "SKYRIMFOLDER=!SKYRIMFOLDER2:~0,-1!"
+if "!GAMEFOLDER2:~-1!"=="\" (
+set "GAMEFOLDER=!GAMEFOLDER2:~0,-1!"
 ) else (
-set "SKYRIMFOLDER=!SKYRIMFOLDER2!"
-SET "SKYRIMFOLDER2=!SKYRIMFOLDER2!\"
+set "GAMEFOLDER=!GAMEFOLDER2!"
+SET "GAMEFOLDER2=!GAMEFOLDER2!\"
 )
 
-pushd !SKYRIMFOLDER! >> !logFile! 2>&1
-@call :GOTSKYRIMFOLDER
+pushd !GAMEFOLDER! >> !logFile! 2>&1
+@call :GOTGAMEFOLDER
 @popd
 )
 ) else (
 
 
-set "SKYRIMFOLDER1=%%~dpG"
+set "GAMEFOLDER1=%%~dpG"
 
-if "!SKYRIMFOLDER1:~-1!"=="\" (
-set "SKYRIMFOLDER=!SKYRIMFOLDER1:~0,-1!"
+if "!GAMEFOLDER1:~-1!"=="\" (
+set "GAMEFOLDER=!GAMEFOLDER1:~0,-1!"
 ) else (
-set "SKYRIMFOLDER=!SKYRIMFOLDER1!"
-SET "SKYRIMFOLDER1=!SKYRIMFOLDER1!\"
+set "GAMEFOLDER=!GAMEFOLDER1!"
+SET "GAMEFOLDER1=!GAMEFOLDER1!\"
 )
-set "FOUNDLASTSKYRIM=!DD!"
+set "FOUNDLASTGAME=!DD!"
 
 REM All this can be done up top, DRIVE is not known yet
 REM 
-if exist !MYGAMESSKYRIM! (
-set "logFile=!YY!!MYGAMESSKYRIM!\Tes5Rename.log"
+if exist !MYGAMESGAME! (
+set "logFile=!YY!!MYGAMESGAME!\Tes5Rename.log"
 ) else (
 set "logFile=%~dp0Tes5Rename.log"
 )
-pushd !SKYRIMFOLDER! >> !logFile! 2>&1
+pushd !GAMEFOLDER! >> !logFile! 2>&1
 
-@call :GOTSKYRIMFOLDER
+@call :GOTGAMEFOLDER
 
 @popd
 
 REM Following fails
-REM call :GOTSKYRIMFOLDER 1>> "!logFile!" 2>&1
+REM call :GOTGAMEFOLDER 1>> "!logFile!" 2>&1
 set "CURRDRIVE=!DD!"
 
-if defined multiSkyrim (
+if defined multiGame (
 @set "multidrive=!DD!"
 ) else (
-set SKYRIMFOLDER1=
+set GAMEFOLDER1=
 goto :FINISH
 )
 
 )
 
 )
-REM Exist SkyrimSE
+REM Exist MYGAMEEXE
+)
 )
 )
 )
 )
 )
 
-REM FOUNDLASTSKYRIM DEFINED
+REM FOUNDLASTGAME DEFINED
 )
 REM Exist Drive
 )
@@ -484,7 +498,7 @@ REM Drives Loop
 
 
 
-if Defined FOUNDLASTSKYRIM (
+if Defined FOUNDLASTGAME (
 if %SSEDRIVE% EQU 0 (
 REM Should never get here
 GOTO ENDSCRIPT
@@ -497,14 +511,14 @@ GOTO FINISH
 
 
 echo(
-echo No Skyrim installed on any of the default paths as itemised in FOLDERSET.
-@goto NOSKYRIMPROMPT
+echo No !MYGAMEEXE:~0,-4! installed on any of the default paths as itemised in FOLDERSET.
+@goto NOGAMEPROMPT
 exit /b
-:NOSKYRIMPROMPT
-if NOT DEFINED FOUNDLASTSKYRIM @set "CURRDRIVE=NOTFOUND"
+:NOGAMEPROMPT
+if NOT DEFINED FOUNDLASTGAME @set "CURRDRIVE=NOTFOUND"
 SET "validateText="
 echo(
-echo Input at least the first letter of Skyrim's base Parent_Folder [Driveletter:]\Parent_Folder.
+echo Input at least the 1st letter of !MYGAMEEXE:~0,-4!'s base Parent_Folder [Driveletter:]\Parent_Folder.
 echo Can use asterisk as wildcard. Separate multiple install locations with semicolons. To reduce
 REM call for paranoia
 @call SET validateText=&SET /P validateText="search overhead, drive letter with colon (Driveletter:) optional, separated by a semicolon."
@@ -515,12 +529,12 @@ GOTO ENDSCRIPT
 ) else (
 
 if "!validateText!"==" " GOTO ENDSCRIPT
-if "!validateText:~0,1!"==" " GOTO NOSKYRIMPROMPT
+if "!validateText:~0,1!"==" " GOTO NOGAMEPROMPT
 
 set INITIAL=
 @set "FOLDERSETINPUT=!validateText!"
-REM MYGAMESSKYRIM and MYAPPDATASKYRIM accounted for
-set "FOLDERSET=!MYBASESKYRIM!"
+REM MYGAMESGAME and MYAPPDATAGAME accounted for
+set "FOLDERSET=!MYBASEGAME!"
 
 call :CHECKPATHS 
 
@@ -556,7 +570,7 @@ if not defined ANOTHERDRIVE (
 if exist !YY! (
 set "ANOTHERDRIVE=!YY!"
 ) else (
-set "ANOTHERDRIVE=!FOUNDLASTSKYRIM!"
+set "ANOTHERDRIVE=!FOUNDLASTGAME!"
 )
 )
 ) else (
@@ -586,13 +600,13 @@ if not defined ANOTHERDRIVE set "ANOTHERDRIVE=!spareDrive!"
 )
 
 if defined FOLDERSET (
-if DEFINED FOUNDLASTSKYRIM (
-set "FOLDERSETINPUT=!MYBASESKYRIM:~3!"
+if DEFINED FOUNDLASTGAME (
+set "FOLDERSETINPUT=!MYBASEGAME:~3!"
 ) else (
-set "FOLDERSETINPUT=!MYBASESKYRIM!"
+set "FOLDERSETINPUT=!MYBASEGAME!"
 )
 ) else (
-if not defined ANOTHERDRIVE set "ANOTHERDRIVE=!FOUNDLASTSKYRIM!"
+if not defined ANOTHERDRIVE set "ANOTHERDRIVE=!FOUNDLASTGAME!"
 @set FOLDERSETINPUT=!FOLDERSET1:~0,-1!"
 )
 
@@ -641,9 +655,9 @@ echo(
 
 echo(
 IF %SSEDRIVE% EQU 1 (
-echo Success: Skyrim folders ^& files renamed on one drive. Log opens [Notepad if no viewer associated.]
+echo Success: !MYGAMEEXE:~0,-4! folders ^& files renamed on one drive. Log opens [Notepad if no viewer associated.]
 ) else (
-echo Success: Skyrim folders ^& files renamed in locations. Log opens [Notepad if no viewer associated.]
+echo Success: !MYGAMEEXE:~0,-4! folders ^& files renamed in locations. Log opens [Notepad if no viewer associated.]
 )
 echo(
 @goto PROMPTFINISH
@@ -655,7 +669,7 @@ SET /P validateText="S: delete script, L: delete log, A: delete script + log, K:
 
 
 
-if /i !validateText!==D goto NOSKYRIMPROMPT
+if /i !validateText!==D goto NOGAMEPROMPT
 if /i !validateText!==S (
 FOR /F "Tokens=1 delims=," %%G IN ('ASSOC .log') DO (@Set "ASSOCLOG=%%G")
 if DEFINED ASSOCLOG ("%LOGFILE%"
@@ -698,7 +712,7 @@ echo(
 if defined EMPTYDIRECTORY (
 echo                        !EMPTYDIRECTORY!
 ) else (
-echo                        Some, or all of the Skyrim files were not renamed at this time.
+echo                       Some, or all of the !MYGAMEEXE:~0,-4! files were not renamed at this time.
 )
 echo(
 pause >nul
@@ -709,8 +723,8 @@ EXIT 0
 start /b "" cmd /c del /F /Q "%~f0"&exit 0
 exit /b
 
-:GOTSKYRIMFOLDER
-REM max of 3 occurrences of SkyrimSE.exe considered on each drive
+:GOTGAMEFOLDER
+REM max of 3 occurrences of MYGAMEEXE considered on each drive
 
 
 
@@ -915,29 +929,29 @@ exit /b
 )
 
 set DD=
-if !FOUNDLASTSKYRIM!==A: (
+if !FOUNDLASTGAME!==A: (
 if !DD!==A set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==B: (
+if !FOUNDLASTGAME!==B: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==C: (
+if !FOUNDLASTGAME!==C: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 if !DD!==C: set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==D: (
+if !FOUNDLASTGAME!==D: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 if !DD!==C: set DD=
 if !DD!==D: set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==E: (
+if !FOUNDLASTGAME!==E: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 if !DD!==C: set DD=
@@ -945,7 +959,7 @@ if !DD!==D: set DD=
 if !DD!==E: set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==F: (
+if !FOUNDLASTGAME!==F: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 if !DD!==C: set DD=
@@ -954,7 +968,7 @@ if !DD!==E: set DD=
 if !DD!==F: set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==G: (
+if !FOUNDLASTGAME!==G: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 if !DD!==C: set DD=
@@ -964,7 +978,7 @@ if !DD!==F: set DD=
 if !DD!==G: set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==H: (
+if !FOUNDLASTGAME!==H: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 if !DD!==C: set DD=
@@ -975,7 +989,7 @@ if !DD!==G: set DD=
 if !DD!==H: set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==I: (
+if !FOUNDLASTGAME!==I: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 if !DD!==C: set DD=
@@ -987,7 +1001,7 @@ if !DD!==H: set DD=
 if !DD!==I: set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==J: (
+if !FOUNDLASTGAME!==J: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 if !DD!==C: set DD=
@@ -1000,7 +1014,7 @@ if !DD!==I: set DD=
 if !DD!==J: set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==K: (
+if !FOUNDLASTGAME!==K: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 if !DD!==C: set DD=
@@ -1014,7 +1028,7 @@ if !DD!==J: set DD=
 if !DD!==K: set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==L: (
+if !FOUNDLASTGAME!==L: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 if !DD!==C: set DD=
@@ -1029,7 +1043,7 @@ if !DD!==K: set DD=
 if !DD!==L: set DD=
 exit /b
 )
-if !FOUNDLASTSKYRIM!==Z: (
+if !FOUNDLASTGAME!==Z: (
 if !DD!==A: set DD=
 if !DD!==B: set DD=
 if !DD!==C: set DD=
@@ -1078,7 +1092,7 @@ if "%%B"==">" set "VALIDATEFAIL=1"
 
 if DEFINED VALIDATEFAIL (
 if !CURRDRIVE!==NOTFOUND (
-goto NOSKYRIMPROMPT
+goto NOGAMEPROMPT
 ) else (
 set "EMPTYDIRECTORY=Invalid characters found in Folderset. Please rerun^!"
 GOTO ENDSCRIPT
@@ -1090,13 +1104,13 @@ call :RESOLVEEACH "!GG!"
 REM INIT
 REM if not "%~1"=="" (
 if defined INITIAL (
-if !CT!==1 set "MYBASESKYRIM=!LASTFOLDER!"
-if !CT!==2 set "MYGAMESSKYRIM=!LASTFOLDER!"
-if !CT!==3 set "MYAPPDATASKYRIM=!LASTFOLDER!"
+if !CT!==1 set "MYBASEGAME=!LASTFOLDER!"
+if !CT!==2 set "MYGAMESGAME=!LASTFOLDER!"
+if !CT!==3 set "MYAPPDATAGAME=!LASTFOLDER!"
 )
 
 
-if defined multiSkyrim (
+if defined multiGame (
 @set "FOLDERSET=!FOLDERSET!!LASTFOLDER!;"
 ) else (
 goto FinalizeFOLDERSET
@@ -1116,7 +1130,7 @@ for %%B in (A:\ B:\ C:\ D:\ E:\ F:\ G:\ H:\ I:\ J:\ K:\ L:\ Z:\) do (
 
 
 
-if not defined multiSkyrim (
+if not defined multiGame (
 if defined LASTFOLDER @set "BREAKLOOP=1
 )
 
@@ -1124,7 +1138,7 @@ if not defined BREAKLOOP (
 set "YY=%%B"
 set "DD=!YY:~0,2!"
 
-if DEFINED FOUNDLASTSKYRIM @call :CheckCURRDRIVE
+if DEFINED FOUNDLASTGAME @call :CheckCURRDRIVE
 
 if defined ANOTHERDRIVE @set "DD=!ANOTHERDRIVE!"
 
@@ -1170,6 +1184,7 @@ if !XX!==!DD! (
 
 if not defined ZZ (
 
+REM ":~n" skip first three chars, extract the rest
 set "XX=!CC:~3!"
 
 
@@ -1231,7 +1246,7 @@ exit /b
 
 if DEFINED LASTFOLDER (
 
-if defined multiSkyrim (
+if defined multiGame (
 @set "FOLDERSET=!FOLDERSET:~0,-1!"
 ) else (
 @set "FOLDERSET=!LASTFOLDER!"
@@ -1241,6 +1256,7 @@ if !CURRDRIVE!==NOTFOUND set "CURRDRIVE=A:"
 
 goto SEARCHDRIVES
 ) else (
+
 set "EMPTYDIRECTORY=No subdirectories or files found^!"
 GOTO ENDSCRIPT
 )
