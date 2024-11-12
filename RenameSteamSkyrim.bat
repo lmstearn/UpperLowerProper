@@ -67,12 +67,12 @@ REM if CmdExtVersion 2 echo Command extensions v2 or later available
 
 
 
-set "CREATKITPROC=Some_Game_Creator.exe"
+set "CREATKITPROC=CreationKit.exe"
 set CREATKIT=
 set GAMEPROC=
-set "XEDITPROC=Some_Game_Editor.exe"
+set "XEDITPROC=SSEEdit.exe"
 set XEdit=
-SET "MYGAMEEXE=Some_Game.exe"
+SET "MYGAMEEXE=SkyrimSE.exe"
 SET "MYGAMEEXENAME=%MYGAMEEXE:~0,-4%"
 
 tasklist /fi "IMAGENAME eq %CREATKITPROC%" | find /i "%CREATKITPROC%" > nul
@@ -98,6 +98,8 @@ If DEFINED GAMEPROC echo %GAMEPROC%
 If DEFINED XEdit echo %XEdit%
 echo(
 echo(
+
+
 
 
 
@@ -205,9 +207,9 @@ REM ==If MYGAMEEXE location differs to one below, change "MYBASEGAME=Your_Differ
 REM ======================Can use wildcard "*". Do not include drive letters!==============================
 REM ============Optionally check and adjust locations for MYGAMESGAME and MYAPPDATAGAME================
 REM =======================================================================================================
-SET "MYBASEGAME=Games\Steam\steamapps\common\Some_Game_Folder"
-SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Some_Game_Settings"
-SET "MYAPPDATAGAME=%LocalAppData%\Some_Game_Data"
+SET "MYBASEGAME=Games\Steam\steamapps\common\Skyrim Special Edition"
+SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Skyrim Special Edition"
+SET "MYAPPDATAGAME=%LocalAppData%\Skyrim Special Edition"
 REM =======================================================================================================
 
 
@@ -221,6 +223,7 @@ set "multiGame=1
 )
 
 @Call :EXPANDFOLDERSET
+
 
 
 :SEARCHDRIVES
@@ -1087,7 +1090,6 @@ if "%%B"==">" set "VALIDATEFAIL=1"
 )
 
 if DEFINED VALIDATEFAIL (
-
 if !CURRDRIVE!==NOTFOUND (
 goto NOGAMEPROMPT
 ) else (
