@@ -1,33 +1,35 @@
 # UpperLowerProper
 Batch File and Folder Case Renamer.
 
-The script will scan for the first occurrence of the Skyrim (SSE) installation<br />
-(MYBASESKYRIM) on the drives commencing from A: drive (finding it typically on <br />
+The script will scan for the first occurrence of your game installation<br />
+(MYBASEGAME) on the drives commencing from A: drive (finding it typically on <br />
 C:), and renaming all subfolders and the files to either upper, lower or proper case.<br />
-A list of the renamed files is found in Tes5Rename.log, on the MYGAMESSKYRIM<br />
+A list of the renamed files is found in GameRename.log, on the MYGAMESGAME<br />
 (see below) directory. Non-standard game folder names can be inserted to the<br />
 following section in the script.
 
-REM ==================================================<br />
-If your Skyrim location is not default or standard, use an editor<br />
-to modify the line "MYBASESKYRIM=Your_Different_Skyrim_Foldername"<br />
-Can use wildcard "*". Do not include drive letters!<br />
-Optionally check and adjust locations for MYGAMESSKYRIM and MYAPPDATASKYRIM.<br />
 
 REM ==================================================<br />
-SET "MYBASESKYRIM=Games\Steam\steamapps\common\Skyrim Special Edition"<br />
-SET "MYGAMESSKYRIM=Users\%USERNAME%\Documents\My Games\Skyrim Special Edition"<br />
-SET "MYAPPDATASKYRIM=Users\%USERNAME%\AppData\Local\Skyrim Special Edition"<br />
+REM ==If MYGAMEEXE location differs to one below,<br />
+REM ==change "MYBASEGAME=Your_Different_MYGAMEEXE_Foldername"==<br />
+REM =====Can use wildcard "*". Do not include drive letters!=====<br />
+REM =Optionally check & adjust locations for MYGAMESGAME & MYAPPDATAGAME=<br />
 REM ==================================================<br />
+SET "MYBASEGAME=Games\Steam\steamapps\common\Some_Game_Folder"<br />
+SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Some_Game_Settings"<br />
+SET "MYAPPDATAGAME=%LocalAppData%\Some_Game_Data"<br />
+REM ==================================================<br />
+
+
 
 An option exists to scan for a 2nd or 3rd installation of the game on the same drive.<br />
 In that case, consider using a text editor for the inclusion of extra folders to the<br />
 above MYBASESKYRIM assignment, each separated by a semicolon.<br />
-If, instead using an upper level folder like "Games" for MYBASESKYRIM, expect a longer<br />
-wait for the search to complete. To scan for the default or original MYBASESKYRIM<br />
+If, instead using an upper level folder like "Games" for MYBASEGAME, expect a longer<br />
+wait for the search to complete. To scan for the default or original MYBASEGAME<br />
 folder on a different drive, input just the new drive letter at the prompt.<br />
-An option also exists to rename the contents of the MYGAMESSKYRIM and <br />
-MYAPPDATASKYRIM folders. Similar scripts will be included for GOG versions,<br />
+An option also exists to rename the contents of the MYGAMESGAME and <br />
+MYAPPDATAGAME folders. Similar scripts will be included for GOG versions,<br />
 other TES Games, and a folder/file rename utility for a generic game.<br />
 
 Gotchas:<br />
