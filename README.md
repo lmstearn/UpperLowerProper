@@ -34,6 +34,7 @@ other TES Games, and a folder/file rename utility for a generic game.<br />
 
 Gotchas:<br />
 * Will not support UNC share drives. A milestone.<br />
+* Currently supports drives A-L, and Z. Drives M-Y another milestone.<br />
 * The script will omit renaming files or folders with a semicolon in thir names.<br />
 * The collection of combined nested folder names do not exceed 8191 characters.<br />
  In the case they do, the script may not complete the renaming.<br />
