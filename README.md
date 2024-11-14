@@ -21,9 +21,9 @@ following section in the script.
 `SET "MYAPPDATAGAME=%LocalAppData%\Some_Game_Data"`<br />
 `REM ==================================================`<br />
 
-For generic games not included, also modify the following value:
+For generic games not referenced in this repo, also modify the following value:<br />
 
-`SET "MYGAMEEXE=Some_Game.exe"`
+`SET "MYGAMEEXE=Some_Game.exe"`<br />
 
 An option exists to scan for a 2nd or 3rd installation of the game on the same drive.<br />
 In that case, consider using a text editor for the inclusion of extra folders to the<br />
