@@ -1,5 +1,5 @@
 # UpperLowerProper
-Batch File and Folder Case Renamer.
+Batch File and Folder Case Renamer (Windows).
 
 The script will scan for the first occurrence of your game installation<br />
 (`MYBASEGAME`) on the drives commencing from A: drive (finding it typically on <br />
@@ -33,6 +33,8 @@ folder on a different drive, input just the new drive letter at the prompt.<br /
 An option also exists to rename the contents of the `MYGAMESGAME` and <br />
 `MYAPPDATAGAME` folders. Similar scripts will be included for GOG versions,<br />
 other TES Games, and a folder/file rename utility for a generic game.<br />
+
+Milestone: Convert scripts to Bash (or similar e.g. Zsh tcsh) for use on target OS.<br />
 
 Gotchas:<br />
 * Will not support UNC share drives. A milestone.<br />
