@@ -1,5 +1,6 @@
 # UpperLowerProper
-Batch File and Folder Case Renamer (Windows).
+Batch File and Folder Case Renamer (Windows) for use in the transfer of modded<br />
+games over to devices with operating systems that use a mixed case file system.<br />
 
 The script will scan for the first occurrence of your game installation<br />
 (`MYBASEGAME`) on the drives commencing from A: drive (finding it typically on <br />
