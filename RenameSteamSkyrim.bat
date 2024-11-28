@@ -65,8 +65,6 @@ REM if CmdExtVersion 2 echo Command extensions v2 or later available
 
 
 
-
-
 set "CREATKITPROC=CreationKit.exe"
 set CREATKIT=
 set GAMEPROC=
@@ -104,8 +102,6 @@ echo(
 
 
 
-
-
 SET renameChoice=
 echo                          Welcome to the %MYGAMEEXENAME% Rename Tool!
 echo(
@@ -122,8 +118,12 @@ echo For items from Documents\My Games\%MYGAMEEXENAME% and Appdata\Local\%MYGAME
 echo "UM" renames to upper case items in %MYGAMEEXENAME% base, My Games\%MYGAMEEXENAME%, and Appdata\Local\%MYGAMEEXENAME%.
 echo  "LCM" (not LMC MCL etc) renames items to lower case in the game directory and ..\My Games\%MYGAMEEXENAME%.
 echo(
+:ChoicePrompt
+if defined ERRORSTATUS (
+SET /P renameChoice=!ERRORSTATUS!
+) else (
 SET /P renameChoice="Type L for lower, U for upper, P for proper case, other key or close window exits, no change."
-
+)
 
 if /I !renameChoice!==l set "choice=y"
 if /I !renameChoice!==u set "choice=y"
@@ -176,9 +176,13 @@ set "multiGame=1"
 set "renameChoice=p"
 set "myGames=1"
 )
+set ERRORSTATUS=
 if not defined choice (
-set "EMPTYDIRECTORY=Valid input is one of "l,u,p,lc,uc,pc,lm,um,pm,pc,lcm,ucm,pcm.""
-goto ENDSCRIPT
+if "!renameChoice!"=="" goto ENDSCRIPT
+if "!renameChoice!"==" " goto ENDSCRIPT
+SET renameChoice=
+set "ERRORSTATUS=Valid input is one of "l,u,p,lc,uc,pc,lm,um,pm,pc,lcm,ucm,pcm":"
+goto ChoicePrompt
 )
 
 
@@ -223,7 +227,6 @@ set "multiGame=1
 )
 
 @Call :EXPANDFOLDERSET
-
 
 
 :SEARCHDRIVES
@@ -561,7 +564,7 @@ if defined YY (
 
 if !YY!==INVALID (
 
-set "EMPTYDIRECTORY=Drive not supported. Please rerun^!"
+set "ERRORSTATUS=Drive not supported. Please rerun^!"
 GOTO ENDSCRIPT
 )
 REM Only one drive accepted
@@ -708,8 +711,8 @@ cls
 echo(
 echo(
 echo(
-if defined EMPTYDIRECTORY (
-echo                        !EMPTYDIRECTORY!
+if defined ERRORSTATUS (
+echo                        !ERRORSTATUS!
 ) else (
 echo                       Some, or all of the !MYGAMEEXE:~0,-4! files were not renamed at this time.
 )
@@ -1093,7 +1096,7 @@ if DEFINED VALIDATEFAIL (
 if !CURRDRIVE!==NOTFOUND (
 goto NOGAMEPROMPT
 ) else (
-set "EMPTYDIRECTORY=Invalid characters found in Folderset. Please rerun^!"
+set "ERRORSTATUS=Invalid characters found in Folderset. Please rerun^!"
 GOTO ENDSCRIPT
 )
 )
@@ -1256,7 +1259,7 @@ if !CURRDRIVE!==NOTFOUND set "CURRDRIVE=A:"
 goto SEARCHDRIVES
 ) else (
 
-set "EMPTYDIRECTORY=No subdirectories or files found^!"
+set "ERRORSTATUS=No subdirectories or files found^!"
 GOTO ENDSCRIPT
 )
 
