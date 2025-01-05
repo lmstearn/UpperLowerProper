@@ -67,11 +67,11 @@ REM if CmdExtVersion 2 echo Command extensions v2 or later available
 
 set "CREATKITPROC=CreationKit.exe"
 set CREATKIT=
-set GAMEPROC=
 set "XEDITPROC=FO4Edit.exe"
 set XEdit=
 SET "MYGAMEEXE=Fallout4.exe"
 SET "MYGAMEEXENAME=%MYGAMEEXE:~0,-4%"
+set GAMEPROC=
 
 tasklist /fi "IMAGENAME eq %CREATKITPROC%" | find /i "%CREATKITPROC%" > nul
 
@@ -212,6 +212,7 @@ REM ======================Can use wildcard "*". Do not include drive letters!===
 REM ============Optionally check and adjust locations for MYGAMESGAME and MYAPPDATAGAME================
 REM =======================================================================================================
 SET "MYBASEGAME=Games\Steam\steamapps\common\Fallout 4"
+REM Program Files\Games\Steam\steamapps\common\Fallout 4"
 SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Fallout 4"
 SET "MYAPPDATAGAME=%LocalAppData%\Fallout 4"
 REM =======================================================================================================

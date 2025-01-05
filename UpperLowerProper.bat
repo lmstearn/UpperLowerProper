@@ -67,11 +67,11 @@ REM if CmdExtVersion 2 echo Command extensions v2 or later available
 
 set "CREATKITPROC=Some_Game_Creator.exe"
 set CREATKIT=
-set GAMEPROC=
 set "XEDITPROC=Some_Game_Editor.exe"
 set XEdit=
 SET "MYGAMEEXE=Some_Game.exe"
 SET "MYGAMEEXENAME=%MYGAMEEXE:~0,-4%"
+set GAMEPROC=
 
 tasklist /fi "IMAGENAME eq %CREATKITPROC%" | find /i "%CREATKITPROC%" > nul
 
