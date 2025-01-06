@@ -212,7 +212,7 @@ REM ======================Can use wildcard "*". Do not include drive letters!===
 REM ============Optionally check and adjust locations for MYGAMESGAME and MYAPPDATAGAME================
 REM =======================================================================================================
 SET "MYBASEGAME=Games\Steam\steamapps\common\Skyrim Special Edition"
-REM Program Files\Games\Steam\steamapps\common\Skyrim Special Edition"
+REM Program Files\Games\Steam\steamapps\common\Skyrim Special Edition
 SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Skyrim Special Edition"
 SET "MYAPPDATAGAME=%LocalAppData%\Skyrim Special Edition"
 REM =======================================================================================================

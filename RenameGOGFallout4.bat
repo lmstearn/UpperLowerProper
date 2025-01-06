@@ -212,8 +212,8 @@ REM ======================Can use wildcard "*". Do not include drive letters!===
 REM ============Optionally check and adjust locations for MYGAMESGAME and MYAPPDATAGAME================
 REM =======================================================================================================
 SET "MYBASEGAME=GOG Galaxy\Games\Fallout 4"
-REM GOG Galaxy\Games\\Fallout 4 GOTY
-REM Program Files\Games\Steam\steamapps\common\Fallout 4"
+REM GOG Galaxy\Games\Fallout 4 GOTY
+REM Program Files\GOG Galaxy\Games\Fallout 4
 
 
 SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Fallout4"

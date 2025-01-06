@@ -212,7 +212,7 @@ REM ======================Can use wildcard "*". Do not include drive letters!===
 REM ============Optionally check and adjust locations for MYGAMESGAME and MYAPPDATAGAME================
 REM =======================================================================================================
 SET "MYBASEGAME=Games\Steam\steamapps\common\Fallout 76"
-REM Program Files\Games\Steam\steamapps\common\Fallout 76"
+REM Program Files\Games\Steam\steamapps\common\Fallout 76
 
 REM The following may have the space: "Fallout 76"
 SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Fallout76"

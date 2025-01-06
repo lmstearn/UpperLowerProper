@@ -213,7 +213,7 @@ REM ============Optionally check and adjust locations for MYGAMESGAME and MYAPPD
 REM =======================================================================================================
 SET "MYBASEGAME=Games\Steam\steamapps\common\Fallout 4"
 REM Games\Steam\steamapps\common\Fallout 4 GOTY
-REM Program Files\Games\Steam\steamapps\common\Fallout 4"
+REM Program Files\Games\Steam\steamapps\common\Fallout 4
 
 
 SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Fallout4"
