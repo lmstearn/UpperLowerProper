@@ -67,9 +67,9 @@ REM if CmdExtVersion 2 echo Command extensions v2 or later available
 
 set "CREATKITPROC=CreationKit.exe"
 set CREATKIT=
-set "XEDITPROC=FO4Edit.exe"
+set "XEDITPROC=FO76Edit.exe"
 set XEdit=
-SET "MYGAMEEXE=Fallout4.exe"
+SET "MYGAMEEXE=Fallout 76.exe"
 SET "MYGAMEEXENAME=%MYGAMEEXE:~0,-4%"
 set GAMEPROC=
 
@@ -211,13 +211,12 @@ REM ==If MYGAMEEXE location differs to one below, change "MYBASEGAME=Your_Differ
 REM ======================Can use wildcard "*". Do not include drive letters!==============================
 REM ============Optionally check and adjust locations for MYGAMESGAME and MYAPPDATAGAME================
 REM =======================================================================================================
-SET "MYBASEGAME=Games\Steam\steamapps\common\Fallout 4"
-REM Games\Steam\steamapps\common\Fallout 4 GOTY
-REM Program Files\Games\Steam\steamapps\common\Fallout 4"
+SET "MYBASEGAME=GOG Galaxy\Games\Fallout 76"
+REM Program Files\GOG Galaxy\Games\Fallout 76"
 
-
-SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Fallout4"
-SET "MYAPPDATAGAME=%LocalAppData%\Fallout4"
+REM The following may have the space: "Fallout 76"
+SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Fallout76"
+SET "MYAPPDATAGAME=%LocalAppData%\Fallout76"
 REM =======================================================================================================
 
 

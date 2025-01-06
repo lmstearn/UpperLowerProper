@@ -65,7 +65,7 @@ REM if CmdExtVersion 2 echo Command extensions v2 or later available
 
 
 
-set "CREATKITPROC=CreationKit.exe"
+set "CREATKITPROC=TES Construction Set.exe"
 set CREATKIT=
 REM Not actually an xEdit construct!
 set "XEDITPROC=MWEdit.exe"
