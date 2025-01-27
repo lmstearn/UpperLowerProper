@@ -35,6 +35,8 @@ An option also exists to rename the contents of the `MYGAMESGAME` and <br />
 `MYAPPDATAGAME` folders. Similar scripts will be included for GOG versions,<br />
 other TES Games, and a folder/file rename utility for a generic game.<br />
 
+The [xEdit](https://github.com/TES5Edit/TES5Edit) _pas_ file changes the Bethesda `MAST` filenames to lower case.<br />
+
 Milestone: Convert scripts to Bash (or similar e.g. Zsh tcsh) for use on target OS.<br />
 
 Gotchas:<br />
