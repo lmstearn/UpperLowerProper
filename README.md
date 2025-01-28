@@ -41,6 +41,7 @@ Milestone: Convert scripts to Bash (or similar e.g. Zsh tcsh) for use on target 
 
 Gotchas:<br />
 * Will not support UNC share drives. A milestone.<br />
+* Does not support data on [FAT](https://learn.microsoft.com/en-us/troubleshoot/windows-client/backup-and-storage/fat-hpfs-and-ntfs-file-systems#fat-overview) drives.<br />
 * Currently supports drives A-L, and Z. Drives M-Y another milestone.<br />
 * The script will omit renaming files or folders with a semicolon in thir names.<br />
 * The collection of combined nested folder names do not exceed 8191 characters.<br />
