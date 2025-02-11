@@ -42,7 +42,7 @@ with just SKSE and the Unofficial Patches, 30,832 files in all. As can be seen f
 the time taken to rename the files and folders to lower case was just over 20 seconds,<br />
 the time to rename the files and folders to upper case was around 35 minutes on the HDD!<br />
 The longer time in the latter would also apply to proper case file/folder renaming,<br />
-which also uses slow character by character comparisons and subsititutions in loops,<br />
+which also uses slow character by character comparisons and substitutions in loops,<br />
 thus demonstrating the limitations of the CMD batch language in performing this task.<br />
 
 
