@@ -37,9 +37,26 @@ other TES Games, and a folder/file rename utility for a generic game.<br />
 
 The [xEdit](https://github.com/TES5Edit/TES5Edit) _pas_ file changes the Bethesda `MAST` filenames to lower case.<br />
 
-Milestone: Convert scripts to Bash (or similar e.g. Zsh tcsh) for use on target OS.<br />
+The 1.1 Gamma relases includes logs [LC](https://raw.githubusercontent.com/lmstearn/UpperLowerProper/refs/heads/main/GameRenameLC.log) and [UC](https://raw.githubusercontent.com/lmstearn/UpperLowerProper/refs/heads/main/GameRenameUC.log) for a basic SkyrimSE Steam install,<br />
+with just SKSE and the Unofficial Patches, 30,832 files in all. As can be seen from the logs,<br />
+the time taken to rename the files and folders to lower case was just over 20 seconds,<br />
+the time to rename the files and folders to upper case was around 35 minutes on the HDD.<br />
+The longer time in the latter would also apply to Proper Case file/folder renaming,<br />
+which also uses slow character by character comparisons and subsititutions in loops,<br />
+thus demonstrating the limitations of the CMD batch language in performing this task.<br />
 
-Gotchas:<br />
+
+### For considerations of hardware and time expenditure,<br />
+### the renaming a large number of files and folders 
+### to upper or proper case is not recommended here.<br />
+
+
+<br />
+<br />
+
+**Milestone**: Convert scripts to Bash (or similar e.g. Zsh tcsh) for use on target OS.<br />
+
+### Gotchas:<br />
 * Will not support UNC share drives. A milestone.<br />
 * Does not support data on [FAT](https://learn.microsoft.com/en-us/troubleshoot/windows-client/backup-and-storage/fat-hpfs-and-ntfs-file-systems#fat-overview) drives.<br />
 * Currently supports drives A-L, and Z. Drives M-Y another milestone.<br />
