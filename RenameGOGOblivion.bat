@@ -69,7 +69,7 @@ set "CREATKITPROC=TESConstructionSet.exe"
 set CREATKIT=
 set "XEDITPROC=TES4Edit.exe"
 set XEdit=
-SET "MYGAMEEXE=FalloutNV.exe"
+SET "MYGAMEEXE=Oblivion.exe"
 SET "MYGAMEEXENAME=%MYGAMEEXE:~0,-4%"
 set GAMEPROC=
 
