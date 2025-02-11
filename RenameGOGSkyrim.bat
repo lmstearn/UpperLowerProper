@@ -222,9 +222,9 @@ REM ============================================================================
 
 if defined myGames (
 @SET "FOLDERSETINPUT=!MYBASEGAME!;!MYGAMESGAME!;!MYAPPDATAGAME!"
-set "multiGame=1
+@set "multiGame=1"
 ) else (
-@SET "FOLDERSETINPUT=!MYBASEGAME!
+@SET "FOLDERSETINPUT=!MYBASEGAME!"
 )
 
 @Call :EXPANDFOLDERSET
@@ -257,12 +257,11 @@ if /I !ANOTHERDRIVE!==!DD! (
 )
 )
 
+
+
 if not defined BREAKLOOP (
-if exist !DD! (
-!DD!
-cd \ >NUL
-
-
+if exist !DD!\ (
+cd /d !DD!\ >NUL
 
 if DEFINED FOUNDLASTGAME (
 
@@ -274,26 +273,27 @@ if defined DD (
 SET GAMEFOLDER1=
 SET GAMEFOLDER2=
 SET GAMEFOLDER3=
+
 FOR %%A IN (!FOLDERSET!) DO (
 @set "FOLDERSET1=%%A"
 
 
 if exist !FOLDERSET1!\ (
 
-for /f "delims=;" %%C in ('dir /b /s /a !FOLDERSET1!') do (
+for /f "delims=;" %%C in ('dir /A:-S /B /S /O:-G "!FOLDERSET1!"') do (
 
 set "XX=%%C"
 set "CC=!XX:~3!"
 set "ZZ=!YY!!CC!"
 
 
-for /D %%G in (!ZZ!) do (
+for /D %%G in ("!ZZ!") do (
 
 
 
-if /i %%~nxG==!MYGAMEEXE! (
+if /i "%%~nxG"=="!MYGAMEEXE!" (
 set "CURRDRIVE=!DD!"
-
+cd "%%~pG"
 if defined GAMEFOLDER1 (
 if defined GAMEFOLDER2 (
 if not defined GAMEFOLDER3 (
@@ -357,7 +357,6 @@ goto :FINISH
 ) else (
 
 
-
 call :CheckANOTHERDRIVE
 
 if defined DD (
@@ -399,18 +398,18 @@ echo PROBLEM WITH "!GAMEFOLDER!" >> !logFile!
 
 ) else (
 
-
-for /f "delims=;" %%C in ('dir /b /s /a !FOLDERSET1!' ) do (
+for /f "delims=;" %%C in ('dir /A:-S /B /S /O:-G "!FOLDERSET1!"' ) do (
 
 set "XX=%%C"
 set "CC=!XX:~3!"
 set "ZZ=!YY!!CC!"
 
 
-for /D %%G in (!ZZ!) do (
+for /D %%G in ("!ZZ!") do (
 
 REM tesv.exe is for Oldrim
-if /i %%~nxG==!MYGAMEEXE! (
+if /i "%%~nxG"=="!MYGAMEEXE!" (
+cd "%%~pG"
 if defined GAMEFOLDER1 (
 REM Here if multiGame
 if defined GAMEFOLDER2 (
@@ -537,11 +536,18 @@ if "!validateText:~0,1!"==" " GOTO NOGAMEPROMPT
 set INITIAL=
 @set "FOLDERSETINPUT=!validateText!"
 REM MYGAMESGAME and MYAPPDATAGAME accounted for
+REM System adds drive letter to MYBASEGAME, so strip it again.
+
+FOR %%l IN ("!MYBASEGAME!") DO set "MYBASEGAME=%%~pnl"
+
+REM Strip possible leading backslash
+IF "!MYBASEGAME:~0,1!"=="\" SET "MYBASEGAME=!MYBASEGAME:~1!"
+)
+
 set "FOLDERSET=!MYBASEGAME!"
 
 call :CHECKPATHS 
 
-)
 
 @GOTO EXPANDFOLDERSET
 exit /b
@@ -560,6 +566,8 @@ set "CC=!FOLDERSETINPUT%%g!"
 set YY=
 call :CheckInputDrive YY !CC!
 
+REM Remove ending quote if single letter
+set "YY=!YY:"=!"
 
 if defined YY (
 
@@ -576,6 +584,8 @@ set "ANOTHERDRIVE=!YY!"
 set "ANOTHERDRIVE=!FOUNDLASTGAME!"
 )
 )
+
+REM YY not a drive
 ) else (
 
 REM strip drive letter from path - does it have a drive ID?
@@ -586,6 +596,12 @@ if defined YY call :CheckInputDrive XX !YY!
 
 if defined XX (
 rem Now retrieve path
+if !XX!==INVALID (
+
+set "ERRORSTATUS=Drive not supported. Please rerun^!"
+GOTO ENDSCRIPT
+)
+
 set "CC=!CC:~3!"
 if not defined spareDrive set "spareDrive=!XX!"
 
@@ -597,6 +613,7 @@ set FOLDERSET=
 )
 
 )
+REM End validate loop
 
 if defined spareDrive (
 if not defined ANOTHERDRIVE set "ANOTHERDRIVE=!spareDrive!"
@@ -666,6 +683,9 @@ echo(
 @goto PROMPTFINISH
 exit /b
 :PROMPTFINISH
+
+echo End time is: %date% %TIME% >> !logFile!
+
 
 SET "validateText="
 SET /P validateText="S: delete script, L: delete log, A: delete script + log, K: keep all, D: another drive. [S/L/A/K/D]"
@@ -771,9 +791,12 @@ REM "The process cannot access the file because it is being used by another proc
 REM Lowercase
 @if /I !renameChoice!==l (
 @for /r %%D in (.) do (
-@for /f "eol=: delims=" %%F in ('dir /l/b/a/d "%%D"') do (
 @echo on
-echo %%D\%%F "%%F"
+echo %%D
+@echo off
+@for /f "eol=: delims=" %%F in ('@dir /a:-S /L/B/A/D "%%D"') do (
+@echo on
+echo "%%F"
 ren "%%D\%%F" "%%F" 2>&1
 @echo off
 )
@@ -796,7 +819,7 @@ ren "%%f" "!filename!" 2>&1
 
 
 
-@for /f "eol=:  delims=" %%z in (' dir /A:D /s/b/d ') do (
+@for /f "eol=:  delims=" %%z in ('@dir /A:D-S /S/B/D') do (
 @pushd %%z
 @for %%f in (*) do (
 @set "filename=%%~f"
@@ -826,7 +849,9 @@ REM Propercase
 
 
 @REM ~n: name without extension
-for /f tokens^=* %%W in ('where .:*')do (
+@for /f tokens^=* %%W in ('where .:*') do (
+
+@REM @dir /b /a:-S %%W >nul 2>nul && (
 
 
 @SET "BASENAME=%%~NXW"
@@ -837,10 +862,13 @@ for /f tokens^=* %%W in ('where .:*')do (
 @SET "UNDERSCORE=_"
 @SET "SPACE= "
 @SET "PARENTHESIS=("
+@echo on
+@echo "%%W"
+@echo off
 @CALL :CONVERT
 )
 
-@for /f "eol=: delims=" %%W in (' dir /A:D /s/b ') do (
+@for /f "eol=: delims=" %%W in ('@dir /A:D-S /s/b') do (
 @pushd %%W
 
 @for %%X in (*) do (
@@ -854,7 +882,7 @@ for /f tokens^=* %%W in ('where .:*')do (
 @SET "PARENTHESIS=("
 @CALL :CONVERT
 )
-popd
+@popd
 @SET "BASENAME=%%~NXW"
 @SET "NAME=%%~NXW"
 @SET "FF=TRUE"
@@ -863,10 +891,12 @@ popd
 @SET "UNDERSCORE=_"
 @SET "SPACE= "
 @SET "PARENTHESIS=("
+@echo on
+@echo "%%W"
+@echo off
 @CALL :CONVERT
 )
 )
-
 )
 
 @echo off
@@ -887,7 +917,7 @@ exit /b
 @SET "LL=!NAME:~0,1!"
 @IF !FF!==TRUE (
 @SET "INITIAL=!LL!"
-@FOR %%V IN (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) DO @call SET INITIAL=!INITIAL:%%V=%%V!
+@FOR %%V IN (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) DO @call SET "INITIAL=!INITIAL:%%V=%%V!"
 @SET "NEWNAME=!NEWNAME!!INITIAL!"
 @SET "DELIM=FALSE"
 ) ELSE (
@@ -911,7 +941,7 @@ exit /b
 @SET "NAME=!NAME:~1!"
 @IF DEFINED NAME @GOTO CONVERT
 
-IF NOT %DIR%!BASENAME!==%DIR%!NEWNAME! (
+@IF NOT %DIR%!BASENAME!==%DIR%!NEWNAME! (
 @echo on
 REN "%DIR%!BASENAME!" "!NEWNAME!" 2>&1
 Echo %DIR%!BASENAME! %DIR%!NEWNAME!
@@ -1064,7 +1094,7 @@ exit /b
 exit /b
 :CheckANOTHERDRIVE
 if defined ANOTHERDRIVE (
-if not !DD!==!ANOTHERDRIVE! set DD=
+if /I not !DD!==!ANOTHERDRIVE! set DD=
 )
 exit /b
 :EXPANDFOLDERSET
@@ -1134,7 +1164,7 @@ for %%B in (A:\ B:\ C:\ D:\ E:\ F:\ G:\ H:\ I:\ J:\ K:\ L:\ Z:\) do (
 
 
 if not defined multiGame (
-if defined LASTFOLDER @set "BREAKLOOP=1
+if defined LASTFOLDER @set "BREAKLOOP=1"
 )
 
 if not defined BREAKLOOP (
@@ -1151,9 +1181,10 @@ set CC=
 
 if defined DD (
 
-if exist !DD! (
+vol !DD! >nul 2>nul
+if not errorlevel 1 (
 
-cd !DD! >NUL
+cd /d !DD!\ >NUL
 
 REM check dir exists
 if exist %~1\* (
@@ -1175,7 +1206,7 @@ cd \ >NUL
 
 
 
-for /f %%C in ('dir /b /s /a:d !FSELEMENT! 2^>NUL') do (
+for /f %%C in ('dir /A:D-S /B /S !FSELEMENT! 2^>NUL') do (
 REM It may occur the full path directory of FSELEMENT is returned first (reparse point?)
 
 
@@ -1201,7 +1232,7 @@ set "ZZ=!YY!!XX!"
 if not defined ZZ (
 REM we must get filename
 
-for /f %%C in ('dir /b /s /a:-d !FSELEMENT! 2^>NUL') do (
+for /f %%C in ('dir /A:-S-D /B /S !FSELEMENT! 2^>NUL') do (
 REM file on drive?
 
 set "CC=%%C"

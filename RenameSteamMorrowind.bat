@@ -65,11 +65,12 @@ REM if CmdExtVersion 2 echo Command extensions v2 or later available
 
 
 
-set "CREATKITPROC=Some_Game_Creator.exe"
+set "CREATKITPROC=TES Construction Set.exe"
 set CREATKIT=
-set "XEDITPROC=Some_Game_Editor.exe"
+REM Not actually an xEdit construct!
+set "XEDITPROC=MWEdit.exe"
 set XEdit=
-SET "MYGAMEEXE=Some_Game.exe"
+SET "MYGAMEEXE=Morrowind.exe"
 SET "MYGAMEEXENAME=%MYGAMEEXE:~0,-4%"
 set GAMEPROC=
 
@@ -211,9 +212,12 @@ REM ==If MYGAMEEXE location differs to one below, change "MYBASEGAME=Your_Differ
 REM ======================Can use wildcard "*". Do not include drive letters!==============================
 REM ============Optionally check and adjust locations for MYGAMESGAME and MYAPPDATAGAME================
 REM =======================================================================================================
-SET "MYBASEGAME=Games\Steam\steamapps\common\Some_Game_Folder"
-SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Some_Game_Settings"
-SET "MYAPPDATAGAME=%LocalAppData%\Some_Game_Data"
+SET "MYBASEGAME=Steam\steamapps\common\Morrowind"
+REM Only 32 bit versions of Steam: C:\Program Files (x86)\Steam\steamapps\common\Morrowind
+
+SET "MYGAMESGAME=%UserProfile%\Documents\My Games\Morrowind"
+REM Older systems use "My Documents"
+SET "MYAPPDATAGAME=
 REM =======================================================================================================
 
 
