@@ -37,7 +37,7 @@ other TES Games, and a folder/file rename utility for a generic game.<br />
 
 The [xEdit](https://github.com/TES5Edit/TES5Edit) _pas_ file changes the Bethesda `MAST` filenames to lower case.<br />
 
-The 1.1 Gamma relases includes logs [LC](https://raw.githubusercontent.com/lmstearn/UpperLowerProper/refs/heads/main/GameRenameLC.log) and [UC](https://raw.githubusercontent.com/lmstearn/UpperLowerProper/refs/heads/main/GameRenameUC.log) for a basic SkyrimSE Steam install,<br />
+The 1.1 Gamma releases includes logs [LC](https://raw.githubusercontent.com/lmstearn/UpperLowerProper/refs/heads/main/GameRenameLC.log) and [UC](https://raw.githubusercontent.com/lmstearn/UpperLowerProper/refs/heads/main/GameRenameUC.log) for a basic SkyrimSE Steam install,<br />
 with just SKSE and the Unofficial Patches, 30,832 files in all. As can be seen from the logs,<br />
 the time taken to rename the files and folders to lower case was just over 20 seconds,<br />
 the time to rename the files and folders to upper case was around 35 minutes on the HDD!<br />
