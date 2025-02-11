@@ -40,14 +40,14 @@ The [xEdit](https://github.com/TES5Edit/TES5Edit) _pas_ file changes the Bethesd
 The 1.1 Gamma relases includes logs [LC](https://raw.githubusercontent.com/lmstearn/UpperLowerProper/refs/heads/main/GameRenameLC.log) and [UC](https://raw.githubusercontent.com/lmstearn/UpperLowerProper/refs/heads/main/GameRenameUC.log) for a basic SkyrimSE Steam install,<br />
 with just SKSE and the Unofficial Patches, 30,832 files in all. As can be seen from the logs,<br />
 the time taken to rename the files and folders to lower case was just over 20 seconds,<br />
-the time to rename the files and folders to upper case was around 35 minutes on the HDD.<br />
-The longer time in the latter would also apply to Proper Case file/folder renaming,<br />
+the time to rename the files and folders to upper case was around 35 minutes on the HDD!<br />
+The longer time in the latter would also apply to proper case file/folder renaming,<br />
 which also uses slow character by character comparisons and subsititutions in loops,<br />
 thus demonstrating the limitations of the CMD batch language in performing this task.<br />
 
 
 ### For considerations of hardware and time expenditure,<br />
-### the renaming a large number of files and folders 
+### the renaming of a large number of files and folders 
 ### to upper or proper case is not recommended here.<br />
 
 
